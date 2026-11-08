@@ -1,104 +1,164 @@
-"""Évalue le tri sur le jeu étiqueté et chiffre coût et ROI.
+"""Évalue le tri sur le jeu étiqueté, compare les modèles et exporte les résultats.
 
-    python evaluate.py --offline                       # baseline mots-clés
-    python evaluate.py --model mistral-small-latest
-    python evaluate.py --model ministral-8b-latest
+    python evaluate.py                              # baseline + tous les modèles de config.json
+    python evaluate.py --models baseline            # sans clé API
+    python evaluate.py --models ministral-8b-latest mistral-small-latest
 
-Le rapport Markdown est écrit dans results/.
+Sorties :
+    docs/results.json          données lues par la page web (fusionnées entre deux lancements)
+    results/<modele>.md        rapport lisible par modèle
 """
 import argparse
 import json
+import math
+import statistics
 import sys
+import time
 from collections import Counter
+from datetime import date
 from pathlib import Path
 
-from router import CATEGORIES, DEFAULT_MODEL, trier
+from router import CATEGORIES, CONFIG, SEUIL_CONFIANCE, trier, utf8_console
 
 ICI = Path(__file__).parent
+SORTIE_JSON = ICI / "docs" / "results.json"
 
 
 def charger(chemin):
     with open(chemin, encoding="utf-8") as f:
-        return [json.loads(l) for l in f if l.strip()]
-
-
-def evaluer(tickets, model, offline):
-    lignes, tok_in, tok_out, latences = [], 0, 0, []
+        tickets = [json.loads(l) for l in f if l.strip()]
     for t in tickets:
-        d, usage, lat = trier(t["texte"], model=model, offline=offline)
+        t.setdefault("difficulte", "standard")
+        assert t["categorie"] in CATEGORIES, f"catégorie inconnue : ticket {t['id']}"
+    return tickets
+
+
+def wilson(k, n, z=1.96):
+    """Intervalle de confiance à 95 % d'une proportion (Wilson), utile avec peu d'exemples."""
+    if n == 0:
+        return (0.0, 0.0)
+    p = k / n
+    centre = (p + z * z / (2 * n)) / (1 + z * z / n)
+    marge = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / (1 + z * z / n)
+    return (round(centre - marge, 3), round(centre + marge, 3))
+
+
+def metriques(paires):
+    """paires = [(ticket, decision)]. Renvoie un dict d'indicateurs."""
+    n = len(paires)
+    if n == 0:
+        return {}
+    ok_cat = sum(d["categorie"] == t["categorie"] for t, d in paires)
+    ok_prio = sum(d["priorite"] == t["priorite"] for t, d in paires)
+    vrais_p1 = [d for t, d in paires if t["priorite"] == "P1"]
+    predits_p1 = [t for t, d in paires if d["priorite"] == "P1"]
+    auto = [(t, d) for t, d in paires if not d["revue_humaine"]]
+    ok_auto = sum(d["categorie"] == t["categorie"] for t, d in auto)
+    return {
+        "n": n,
+        "precision_categorie": round(ok_cat / n, 3),
+        "ic95_categorie": wilson(ok_cat, n),
+        "precision_priorite": round(ok_prio / n, 3),
+        "rappel_p1": round(sum(d["priorite"] == "P1" for d in vrais_p1) / len(vrais_p1), 3) if vrais_p1 else None,
+        "precision_p1": round(sum(t["priorite"] == "P1" for t in predits_p1) / len(predits_p1), 3) if predits_p1 else None,
+        "p1_rates": sum(d["priorite"] == "P3" for d in vrais_p1),
+        "taux_automatisation": round(len(auto) / n, 3),
+        "precision_sur_automatise": round(ok_auto / len(auto), 3) if auto else None,
+    }
+
+
+def evaluer(tickets, modele):
+    offline = modele == "baseline"
+    paires, tok_in, tok_out, latences = [], 0, 0, []
+    for t in tickets:
+        d, usage, lat = trier(t["texte"], model=modele, offline=offline)
         tok_in += usage.get("prompt_tokens", 0)
         tok_out += usage.get("completion_tokens", 0)
         latences.append(lat)
-        lignes.append((t, d))
+        paires.append((t, d))
         ok = "ok " if d["categorie"] == t["categorie"] else "ERR"
-        print(f"[{ok}] #{t['id']:>2} attendu {t['categorie']}/{t['priorite']} -> {d['categorie']}/{d['priorite']}", flush=True)
-    return lignes, tok_in, tok_out, latences
+        print(f"  [{ok}] #{t['id']:>2} attendu {t['categorie']}/{t['priorite']} -> {d['categorie']}/{d['priorite']}", flush=True)
+        if not offline:
+            time.sleep(0.3)  # reste sous la limite de débit des petits forfaits
+    n = len(tickets)
+    res = {
+        "id": modele,
+        "nom": "Baseline mots-clés" if offline else CONFIG["modeles"].get(modele, {}).get("nom", modele),
+        "global": metriques(paires),
+        "standard": metriques([p for p in paires if p[0]["difficulte"] == "standard"]),
+        "difficile": metriques([p for p in paires if p[0]["difficulte"] == "difficile"]),
+        "confusions": [
+            {"attendu": a, "predit": b, "nb": k}
+            for (a, b), k in Counter((t["categorie"], d["categorie"]) for t, d in paires if d["categorie"] != t["categorie"]).most_common()
+        ],
+    }
+    if not offline:
+        prix = CONFIG["modeles"].get(modele, {"entree": 0, "sortie": 0})
+        res.update({
+            "tokens_entree_moy": round(tok_in / n),
+            "tokens_sortie_moy": round(tok_out / n),
+            "cout_par_ticket_usd": round((tok_in * prix["entree"] + tok_out * prix["sortie"]) / 1e6 / n, 7),
+            "latence_moy_s": round(statistics.mean(latences), 2),
+            "latence_p95_s": round(sorted(latences)[int(0.95 * (n - 1))], 2),
+            "prix": prix,
+        })
+    return res, {t["id"]: d for t, d in paires}
 
 
-def rapport(lignes, tok_in, tok_out, latences, a):
-    n = len(lignes)
-    acc_cat = sum(d["categorie"] == t["categorie"] for t, d in lignes) / n
-    acc_prio = sum(d["priorite"] == t["priorite"] for t, d in lignes) / n
-    p1 = [(t, d) for t, d in lignes if t["priorite"] == "P1"]
-    rappel_p1 = sum(d["priorite"] == "P1" for _, d in p1) / len(p1)
-    revue = sum(d["revue_humaine"] for _, d in lignes) / n
-    erreurs = [(t, d) for t, d in lignes if d["categorie"] != t["categorie"]]
-    confusion = Counter((t["categorie"], d["categorie"]) for t, d in erreurs)
-
-    nom = "baseline mots-clés" if a.offline else a.model
-    out = [f"# Résultats : {nom}", "", f"Jeu de test : {n} tickets synthétiques (opérateur fibre, FR).", ""]
-    out += ["| Indicateur | Valeur |", "|---|---|",
-            f"| Précision catégorie | {acc_cat:.0%} |",
-            f"| Précision priorité | {acc_prio:.0%} |",
-            f"| Rappel des P1 (urgences détectées) | {rappel_p1:.0%} |",
-            f"| Envoyés en revue humaine | {revue:.0%} |"]
-
-    if not a.offline:
-        cout_ticket = (tok_in * a.prix_entree + tok_out * a.prix_sortie) / 1e6 / n
-        lat_moy = sum(latences) / n
-        cout_mois = cout_ticket * a.tickets_jour * 22
-        gain_mois = a.tickets_jour * 22 * a.minutes_gagnees / 60 * a.cout_horaire * acc_cat
-        out += [f"| Latence moyenne | {lat_moy:.2f} s |",
-                f"| Tokens moyens / ticket | {tok_in / n:.0f} entrée, {tok_out / n:.0f} sortie |",
-                f"| Coût API / ticket | {cout_ticket:.5f} $ |",
-                "", "## Estimation de ROI (hypothèses à adapter au client)", "",
-                f"- {a.tickets_jour} tickets/jour, 22 jours/mois, {a.minutes_gagnees} min gagnées par ticket bien trié, {a.cout_horaire} €/h chargé",
-                f"- Coût API : **{cout_mois:,.0f} $/mois**",
-                f"- Temps opérateur économisé : **{gain_mois:,.0f} €/mois** (pondéré par la précision)",
-                f"- Tarifs utilisés : {a.prix_entree} $ / {a.prix_sortie} $ par million de tokens (à vérifier sur mistral.ai/pricing)",
-                "- Non inclus : intégration à l'outil de ticketing, supervision, conduite du changement."]
-
-    if confusion:
-        out += ["", "## Confusions principales", "", "| Attendu | Prédit | Nb |", "|---|---|---|"]
-        out += [f"| {att} | {pred} | {k} |" for (att, pred), k in confusion.most_common()]
-        out += ["", "## Tickets mal classés", ""]
-        out += [f"- #{t['id']} ({t['categorie']} -> {d['categorie']}) : {t['texte'][:110]}" for t, d in erreurs]
-    return "\n".join(out) + "\n"
+def rapport_md(r):
+    g = r["global"]
+    lignes = [f"# {r['nom']}", "", "| Indicateur | Global | Standard | Difficile |", "|---|---|---|---|"]
+    def ligne(label, cle, fmt="{:.0%}"):
+        vals = [r[s].get(cle) for s in ("global", "standard", "difficile")]
+        lignes.append(f"| {label} | " + " | ".join("-" if v is None else fmt.format(v) for v in vals) + " |")
+    ligne("Précision catégorie", "precision_categorie")
+    ligne("Précision priorité", "precision_priorite")
+    ligne("Rappel des P1", "rappel_p1")
+    ligne("Précision des P1", "precision_p1")
+    ligne("P1 classés P3 (grave)", "p1_rates", "{}")
+    ligne("Taux d'automatisation", "taux_automatisation")
+    ligne("Précision sur l'automatisé", "precision_sur_automatise")
+    lo, hi = g["ic95_categorie"]
+    lignes += ["", f"Intervalle de confiance à 95 % sur la précision catégorie : {lo:.0%} à {hi:.0%}."]
+    if "cout_par_ticket_usd" in r:
+        lignes += [f"Coût moyen : {r['cout_par_ticket_usd']:.6f} $ par ticket ; latence moyenne {r['latence_moy_s']} s (p95 {r['latence_p95_s']} s)."]
+    if r["confusions"]:
+        lignes += ["", "| Attendu | Prédit | Nb |", "|---|---|---|"] + [f"| {c['attendu']} | {c['predit']} | {c['nb']} |" for c in r["confusions"]]
+    return "\n".join(lignes) + "\n"
 
 
 def main():
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8")
-        sys.stderr.reconfigure(encoding="utf-8")
+    utf8_console()
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--model", default=DEFAULT_MODEL)
-    p.add_argument("--offline", action="store_true")
+    p.add_argument("--models", nargs="+", default=["baseline", *CONFIG["modeles"]])
     p.add_argument("--data", default=ICI / "data" / "tickets.jsonl")
-    p.add_argument("--prix-entree", type=float, default=0.1, help="$ par million de tokens en entrée")
-    p.add_argument("--prix-sortie", type=float, default=0.3, help="$ par million de tokens en sortie")
-    p.add_argument("--tickets-jour", type=int, default=300)
-    p.add_argument("--minutes-gagnees", type=float, default=1.5)
-    p.add_argument("--cout-horaire", type=float, default=35.0)
     a = p.parse_args()
 
     tickets = charger(a.data)
-    assert all(t["categorie"] in CATEGORIES for t in tickets), "catégorie inconnue dans le jeu de test"
-    md = rapport(*evaluer(tickets, a.model, a.offline), a)
-    dossier = ICI / "results"
-    dossier.mkdir(exist_ok=True)
-    fichier = dossier / f"rapport_{'baseline' if a.offline else a.model}.md"
-    fichier.write_text(md, encoding="utf-8")
-    print("\n" + md + f"\nRapport écrit dans {fichier}")
+    sortie = json.loads(SORTIE_JSON.read_text(encoding="utf-8")) if SORTIE_JSON.exists() else {"modeles": {}, "predictions": {}}
+    (ICI / "results").mkdir(exist_ok=True)
+
+    for m in a.models:
+        print(f"\n=== {m} ===", flush=True)
+        try:
+            res, preds = evaluer(tickets, m)
+        except RuntimeError as e:
+            print(f"  ignoré : {e}")
+            continue
+        sortie["modeles"][m] = res
+        sortie["predictions"][m] = preds
+        (ICI / "results" / f"{m}.md").write_text(rapport_md(res), encoding="utf-8")
+        g = res["global"]
+        print(f"  -> catégorie {g['precision_categorie']:.0%}, priorité {g['precision_priorite']:.0%}, rappel P1 {g['rappel_p1']:.0%}")
+
+    sortie.update({
+        "genere_le": date.today().isoformat(),
+        "seuil_confiance": SEUIL_CONFIANCE,
+        "tickets": [{k: t[k] for k in ("id", "texte", "categorie", "priorite", "difficulte")} for t in tickets],
+    })
+    SORTIE_JSON.parent.mkdir(exist_ok=True)
+    SORTIE_JSON.write_text(json.dumps(sortie, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"\nRésultats écrits dans {SORTIE_JSON}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tri de tickets IA</title>
+<meta name="description" content="Tri automatique de tickets support pour un opérateur fibre avec les modèles Mistral : évaluation, comparaison de modèles et ROI.">
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#fff;--ink:#1b1d21;--muted:#5f6670;--line:#e3e4e1;
+  --accent:#2f5bd3;--accent-soft:#e8eefc;--ok:#1f8a4c;--ok-soft:#e5f4ea;--bad:#c2372d;--bad-soft:#fbe9e7;--warn:#a86400;--warn-soft:#fdf1dc;
+  --base:#9aa1aa;--m1:#7c8db5;--m2:#2f5bd3;--m3:#13306f;
+  --radius:10px;--mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121417;--surface:#1b1e23;--ink:#e9eaec;--muted:#9aa1ab;--line:#2c3037;
+  --accent:#7d9cf0;--accent-soft:#1f2a45;--ok:#5cc28a;--ok-soft:#173326;--bad:#f07c72;--bad-soft:#3a1d1a;--warn:#e6b257;--warn-soft:#3a2c12;
+  --base:#5d646e;--m1:#6c7ea8;--m2:#7d9cf0;--m3:#b9c9f7;}}
+:root[data-theme="dark"]{
+  --bg:#121417;--surface:#1b1e23;--ink:#e9eaec;--muted:#9aa1ab;--line:#2c3037;
+  --accent:#7d9cf0;--accent-soft:#1f2a45;--ok:#5cc28a;--ok-soft:#173326;--bad:#f07c72;--bad-soft:#3a1d1a;--warn:#e6b257;--warn-soft:#3a2c12;
+  --base:#5d646e;--m1:#6c7ea8;--m2:#7d9cf0;--m3:#b9c9f7;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{padding:48px 0 24px}
+.eyebrow{color:var(--accent);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+h1{font-size:clamp(28px,4.5vw,42px);line-height:1.15;margin:8px 0 12px;letter-spacing:-.02em}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.01em}
+.lead{color:var(--muted);max-width:720px;font-size:17px;margin:0}
+section{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin:20px 0}
+.sub{color:var(--muted);margin:0 0 18px;font-size:15px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:28px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.kpi b{display:block;font-size:30px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi span{color:var(--muted);font-size:14px}
+textarea,select,input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
+textarea{width:100%;min-height:96px;resize:vertical}
+button{font:inherit;font-weight:600;border:0;border-radius:8px;padding:10px 16px;background:var(--accent);color:#fff;cursor:pointer}
+button[disabled]{opacity:.5;cursor:wait}
+.dark button{color:#0d1220}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:13px;font-weight:600;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.pill.P1{background:var(--bad-soft);color:var(--bad)}.pill.P2{background:var(--warn-soft);color:var(--warn)}.pill.P3{background:var(--ok-soft);color:var(--ok)}
+.pill.rev{background:var(--warn-soft);color:var(--warn)}
+.notice{background:var(--accent-soft);border-radius:8px;padding:12px 14px;font-size:15px;margin-bottom:12px}
+.notice code{font-family:var(--mono);font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:14px}
+.card{border:1px solid var(--line);border-radius:8px;padding:14px;background:var(--bg)}
+.card h3{margin:0 0 8px;font-size:14px;color:var(--muted);font-weight:600}
+.card .res{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.card p{margin:6px 0 0;font-size:14px}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+.tabs{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.tabs button{background:transparent;color:var(--ink);border-radius:0;font-weight:500;padding:8px 14px}
+.tabs button.on{background:var(--accent);color:#fff}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;color:var(--muted);font-weight:600}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bars{display:grid;gap:18px}
+.bar-group h3{font-size:15px;margin:0 0 8px}
+.bar{display:grid;grid-template-columns:150px 1fr 48px;gap:10px;align-items:center;font-size:14px;margin:4px 0}
+.track{height:14px;background:var(--bg);border-radius:4px;overflow:hidden}
+.fill{height:100%;border-radius:4px}
+.legend{font-size:13px;color:var(--muted);margin-top:8px}
+.roi{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.roi label{display:flex;flex-direction:column;font-size:14px;color:var(--muted);gap:4px}
+.roi-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:18px}
+.roi-out div{background:var(--bg);border-radius:8px;padding:14px}
+.roi-out b{display:block;font-size:24px;font-variant-numeric:tabular-nums}
+.roi-out .net b{color:var(--ok)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.filters button{background:var(--bg);color:var(--ink);border:1px solid var(--line);font-weight:500;padding:6px 12px}
+.filters button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+td.txt{max-width:420px}
+.tag{font-size:12px;color:var(--muted)}
+footer{color:var(--muted);font-size:14px;padding:24px 0 48px}
+a{color:var(--accent)}
+@media (max-width:640px){section{padding:18px}.bar{grid-template-columns:100px 1fr 42px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Démo · IA appliquée au support client</div>
+  <h1>Trier les tickets d'un opérateur fibre avec Mistral</h1>
+  <p class="lead">Chaque message client reçoit une catégorie, une urgence et une équipe destinataire. Trois modèles Mistral sont comparés à une règle par mots-clés sur 90 tickets, dont 48 pièges, avec le coût et le gain réel par mois.</p>
+  <div class="kpis" id="kpis"></div>
+</header>
+
+<section id="essayer">
+  <h2>Essayer</h2>
+  <p class="sub">Choisis un ticket du jeu de test pour voir la réponse de chaque modèle, ou écris le tien (démo locale).</p>
+  <div id="live-note" class="notice"></div>
+  <div class="row" style="margin-top:0">
+    <select id="exemple" style="flex:1;min-width:0"></select>
+  </div>
+  <div id="live-zone" hidden>
+    <textarea id="saisie" placeholder="Ex. : Plus aucune connexion sur notre site depuis 8h, 40 postes bloqués."></textarea>
+    <div class="row"><select id="modele-live"></select><button id="go">Trier ce ticket</button><span id="live-info" class="tag"></span></div>
+  </div>
+  <div id="resultats" class="cards"></div>
+</section>
+
+<section>
+  <h2>Comparaison des modèles</h2>
+  <p class="sub">Les tickets « standard » ressemblent à ceux qui ont servi à écrire la règle par mots-clés. Les « difficiles » sont nouveaux : urgences implicites, ironie, SMS, anglais, demandes multiples.</p>
+  <div class="tabs" id="tabs-perimetre"></div>
+  <div class="bars" id="bars"></div>
+  <div class="legend">Rappel des P1 = part des vraies urgences détectées comme urgentes. C'est l'indicateur le plus important : rater une panne d'EHPAD coûte plus cher que mal classer une question de facture.</div>
+  <div class="scroll" style="margin-top:20px"><table id="tableau"></table></div>
+</section>
+
+<section>
+  <h2>Ce que ça rapporte</h2>
+  <p class="sub">Les hypothèses sont à remplacer par les chiffres du client. Seuls les tickets traités automatiquement comptent (les autres partent en revue humaine), et chaque erreur de tri coûte du temps.</p>
+  <div class="roi">
+    <label>Modèle<select id="r-modele"></select></label>
+    <label>Tickets par jour<input id="r-tickets" type="number" value="300" min="0"></label>
+    <label>Minutes gagnées par ticket bien trié<input id="r-gain" type="number" value="1.5" step="0.1" min="0"></label>
+    <label>Minutes perdues par ticket mal trié<input id="r-perte" type="number" value="6" step="0.5" min="0"></label>
+    <label>Coût horaire chargé (€)<input id="r-cout" type="number" value="35" min="0"></label>
+    <label>Jours ouvrés par mois<input id="r-jours" type="number" value="22" min="0"></label>
+  </div>
+  <div class="roi-out" id="roi-out"></div>
+  <p class="tag" id="roi-note"></p>
+</section>
+
+<section>
+  <h2>Les 90 tickets</h2>
+  <p class="sub">Tous les tickets sont fictifs. La première colonne donne la réponse attendue, les suivantes la réponse de chaque modèle.</p>
+  <div class="filters" id="filtres"></div>
+  <div class="scroll"><table id="explorateur"></table></div>
+</section>
+
+<footer>
+  Méthode complète, limites et code : <a href="https://github.com/Aycotek/mistral-ticket-router">github.com/Aycotek/mistral-ticket-router</a> · Résultats générés le <span id="date"></span> · Projet personnel, sans lien avec Mistral AI.
+</footer>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pct = v => v == null ? "–" : Math.round(v * 100) + " %";
+const COULEURS = ["var(--base)", "var(--m1)", "var(--m2)", "var(--m3)"];
+const LABEL_CAT = {panne:"Panne",raccordement:"Raccordement",intervention:"Intervention",facturation:"Facturation",commande:"Commande",resiliation:"Résiliation",autre:"Autre"};
+let D, ordre, live = false;
+
+function modelesTries() {
+  const ids = Object.keys(D.modeles);
+  return ["baseline", ...ids.filter(i => i !== "baseline")].filter(i => D.modeles[i]);
+}
+function meilleur() {
+  const llm = ordre.filter(i => i !== "baseline");
+  if (!llm.length) return null;
+  return llm.reduce((a, b) => (D.modeles[b].global.rappel_p1 + D.modeles[b].global.precision_categorie) > (D.modeles[a].global.rappel_p1 + D.modeles[a].global.precision_categorie) ? b : a);
+}
+
+function kpis() {
+  const b = meilleur(), base = D.modeles.baseline;
+  if (!b) { $("#kpis").innerHTML = `<div class="kpi"><b>${pct(base.global.precision_categorie)}</b><span>Précision de la règle par mots-clés</span></div><div class="kpi"><b>${pct(base.difficile.rappel_p1)}</b><span>Urgences difficiles détectées par la règle</span></div><div class="kpi"><b>…</b><span>Résultats Mistral en cours de génération</span></div>`; return; }
+  const m = D.modeles[b];
+  $("#kpis").innerHTML = `
+    <div class="kpi"><b>${pct(m.global.precision_categorie)}</b><span>de tickets bien classés par ${esc(m.nom)} (règle : ${pct(base.global.precision_categorie)})</span></div>
+    <div class="kpi"><b>${pct(m.global.rappel_p1)}</b><span>des urgences détectées (règle : ${pct(base.global.rappel_p1)})</span></div>
+    <div class="kpi"><b>${(m.cout_par_ticket_usd * 1000).toFixed(2)} $</b><span>pour trier 1 000 tickets</span></div>
+    <div class="kpi"><b>${m.latence_moy_s.toFixed(1)} s</b><span>de délai moyen par ticket</span></div>`;
+}
+
+function carte(id, d, attendu) {
+  const m = D.modeles[id] || {nom: D.modelesConfig?.[id]?.nom || id};
+  const okc = attendu ? (d.categorie === attendu.categorie ? '<span class="ok">✓</span>' : '<span class="bad">✗</span>') : "";
+  const okp = attendu ? (d.priorite === attendu.priorite ? '<span class="ok">✓</span>' : '<span class="bad">✗</span>') : "";
+  return `<div class="card"><h3>${esc(m.nom)}</h3>
+    <div class="res"><span class="pill">${LABEL_CAT[d.categorie] || esc(d.categorie)}</span>${okc}<span class="pill ${d.priorite}">${d.priorite}</span>${okp}${d.revue_humaine ? '<span class="pill rev">revue humaine</span>' : ""}</div>
+    <div class="tag">→ ${esc(d.equipe)} · confiance ${Math.round(d.confiance * 100)} %</div>
+    ${id !== "baseline" && d.resume ? `<p>${esc(d.resume)}</p>` : ""}
+    ${d.references?.length ? `<p class="tag">Réf. : ${d.references.map(esc).join(", ")}</p>` : ""}</div>`;
+}
+
+function montrerExemple() {
+  const id = +$("#exemple").value, t = D.tickets.find(x => x.id === id);
+  if (!t) return;
+  if (live) $("#saisie").value = t.texte;
+  const attendu = `<div class="card" style="border-color:var(--accent)"><h3>Réponse attendue</h3><div class="res"><span class="pill">${LABEL_CAT[t.categorie]}</span><span class="pill ${t.priorite}">${t.priorite}</span></div><p>${esc(t.texte)}</p><p class="tag">Ticket ${t.difficulte}</p></div>`;
+  $("#resultats").innerHTML = attendu + ordre.map(m => D.predictions[m]?.[id] ? carte(m, D.predictions[m][id], t) : "").join("");
+}
+
+async function trierLive() {
+  const texte = $("#saisie").value.trim(); if (!texte) return;
+  $("#go").disabled = true; $("#live-info").textContent = "Appel à l'API…";
+  try {
+    const r = await fetch("/api/trier", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({texte, modele: $("#modele-live").value})});
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.erreur);
+    $("#resultats").innerHTML = carte($("#modele-live").value, j.decision, null);
+    $("#live-info").textContent = `${j.latence_s} s · ${j.usage.prompt_tokens} + ${j.usage.completion_tokens} tokens`;
+  } catch (e) { $("#live-info").textContent = "Erreur : " + e.message; }
+  $("#go").disabled = false;
+}
+
+let perimetre = "global";
+function comparaison() {
+  $("#tabs-perimetre").innerHTML = [["global","Tous (90)"],["standard","Standard (42)"],["difficile","Difficiles (48)"]]
+    .map(([k, l]) => `<button class="${k === perimetre ? "on" : ""}" data-p="${k}">${l}</button>`).join("");
+  const indic = [["precision_categorie","Bonne catégorie"],["precision_priorite","Bonne priorité"],["rappel_p1","Urgences détectées (rappel P1)"]];
+  $("#bars").innerHTML = indic.map(([k, l]) => `<div class="bar-group"><h3>${l}</h3>${ordre.map((m, i) => {
+    const v = D.modeles[m][perimetre][k] ?? 0;
+    return `<div class="bar"><span>${esc(D.modeles[m].nom)}</span><div class="track"><div class="fill" style="width:${v * 100}%;background:${COULEURS[i % 4]}"></div></div><span class="num">${pct(v)}</span></div>`;
+  }).join("")}</div>`).join("");
+  const lignes = [
+    ["Urgences classées « pas urgent » (P1 → P3)", m => D.modeles[m][perimetre].p1_rates],
+    ["Précision quand une urgence est annoncée", m => pct(D.modeles[m][perimetre].precision_p1)],
+    ["Part traitée sans humain", m => pct(D.modeles[m][perimetre].taux_automatisation)],
+    ["Précision sur cette part", m => pct(D.modeles[m][perimetre].precision_sur_automatise)],
+    ["Intervalle de confiance 95 % (catégorie)", m => D.modeles[m][perimetre].ic95_categorie.map(pct).join(" – ")],
+    ["Coût pour 1 000 tickets", m => D.modeles[m].cout_par_ticket_usd != null ? (D.modeles[m].cout_par_ticket_usd * 1000).toFixed(2) + " $" : "0 $"],
+    ["Délai moyen / p95", m => D.modeles[m].latence_moy_s != null ? `${D.modeles[m].latence_moy_s} s / ${D.modeles[m].latence_p95_s} s` : "instantané"],
+  ];
+  $("#tableau").innerHTML = `<tr><th></th>${ordre.map(m => `<th class="num">${esc(D.modeles[m].nom)}</th>`).join("")}</tr>` +
+    lignes.map(([l, f]) => `<tr><td>${l}</td>${ordre.map(m => `<td class="num">${f(m)}</td>`).join("")}</tr>`).join("");
+}
+
+function roi() {
+  const m = D.modeles[$("#r-modele").value]; if (!m) return;
+  const v = id => Math.max(0, +$(id).value || 0);
+  const n = v("#r-tickets") * v("#r-jours"), g = m.global;
+  const auto = n * g.taux_automatisation, bons = auto * (g.precision_sur_automatise ?? 0), faux = auto - bons;
+  const gain = bons * v("#r-gain") / 60 * v("#r-cout"), perte = faux * v("#r-perte") / 60 * v("#r-cout");
+  const api = n * (m.cout_par_ticket_usd ?? 0);
+  const net = gain - perte - api;
+  const f = x => Math.round(x).toLocaleString("fr-FR");
+  $("#roi-out").innerHTML = `
+    <div><span class="tag">Tickets triés seuls / mois</span><b>${f(auto)}</b></div>
+    <div><span class="tag">Temps gagné</span><b>+${f(gain)} €</b></div>
+    <div><span class="tag">Temps perdu (erreurs)</span><b>−${f(perte)} €</b></div>
+    <div><span class="tag">Coût API</span><b>−${f(api)} €</b></div>
+    <div class="net"><span class="tag">Gain net / mois</span><b style="color:${net < 0 ? "var(--bad)" : "var(--ok)"}">${net < 0 ? "−" : "+"}${f(Math.abs(net))} €</b></div>`;
+  $("#roi-note").textContent = `Hors coût d'intégration à l'outil de ticketing et de supervision. Tarif API converti 1 $ ≈ 1 € pour simplifier. Heures opérateur économisées : ${f((gain) / v("#r-cout") || 0)} h/mois.`;
+}
+
+let filtre = "tous";
+function explorateur() {
+  const F = {tous:"Tous", difficile:"Difficiles", P1:"Urgences (P1)", erreurs:"Erreurs du meilleur modèle"};
+  $("#filtres").innerHTML = Object.entries(F).map(([k, l]) => `<button class="${k === filtre ? "on" : ""}" data-f="${k}">${l}</button>`).join("");
+  const b = meilleur() || "baseline";
+  const lignes = D.tickets.filter(t => filtre === "tous" || (filtre === "difficile" && t.difficulte === "difficile") || (filtre === "P1" && t.priorite === "P1") ||
+    (filtre === "erreurs" && D.predictions[b]?.[t.id] && (D.predictions[b][t.id].categorie !== t.categorie || D.predictions[b][t.id].priorite !== t.priorite)));
+  const cell = (t, d) => !d ? "<td>–</td>" : `<td><span class="${d.categorie === t.categorie ? "ok" : "bad"}">${LABEL_CAT[d.categorie] || esc(d.categorie)}</span><br><span class="pill ${d.priorite}">${d.priorite}</span>${d.revue_humaine ? ' <span class="pill rev">revue</span>' : ""}</td>`;
+  $("#explorateur").innerHTML = `<tr><th>#</th><th>Ticket</th><th>Attendu</th>${ordre.map(m => `<th>${esc(D.modeles[m].nom)}</th>`).join("")}</tr>` +
+    lignes.map(t => `<tr><td class="num">${t.id}</td><td class="txt">${esc(t.texte)}<div class="tag">${t.difficulte}</div></td><td>${LABEL_CAT[t.categorie]}<br><span class="pill ${t.priorite}">${t.priorite}</span></td>${ordre.map(m => cell(t, D.predictions[m]?.[t.id])).join("")}</tr>`).join("") +
+    (lignes.length ? "" : `<tr><td colspan="9">Aucun ticket.</td></tr>`);
+}
+
+async function init() {
+  D = await (await fetch("results.json")).json();
+  ordre = modelesTries();
+  $("#date").textContent = D.genere_le;
+  kpis(); comparaison(); explorateur();
+  $("#exemple").innerHTML = D.tickets.map(t => `<option value="${t.id}">#${t.id} ${t.priorite} · ${esc(t.texte.slice(0, 90))}${t.texte.length > 90 ? "…" : ""}</option>`).join("");
+  $("#exemple").value = 43; montrerExemple();
+  const llm = ordre.filter(i => i !== "baseline");
+  $("#r-modele").innerHTML = (llm.length ? llm : ["baseline"]).map(m => `<option value="${m}">${esc(D.modeles[m].nom)}</option>`).join("");
+  $("#r-modele").value = meilleur() || "baseline"; roi();
+  document.querySelectorAll(".roi input, .roi select").forEach(e => e.addEventListener("input", roi));
+  $("#exemple").addEventListener("change", montrerExemple);
+  $("#tabs-perimetre").addEventListener("click", e => { if (e.target.dataset.p) { perimetre = e.target.dataset.p; comparaison(); } });
+  $("#filtres").addEventListener("click", e => { if (e.target.dataset.f) { filtre = e.target.dataset.f; explorateur(); } });
+  try {
+    const s = await (await fetch("/api/status")).json();
+    live = s.live;
+    if (live) {
+      D.modelesConfig = s.modeles;
+      $("#live-zone").hidden = false;
+      $("#modele-live").innerHTML = Object.entries(s.modeles).map(([k, v]) => `<option value="${k}">${esc(v.nom)}</option>`).join("");
+      $("#modele-live").value = s.defaut;
+      $("#go").addEventListener("click", trierLive);
+      $("#live-note").innerHTML = "Démo en direct activée : choisis un exemple ou écris ton propre ticket, puis lance le tri.";
+      montrerExemple();
+    } else throw 0;
+  } catch { $("#live-note").innerHTML = "Version en ligne : les réponses affichées ont été générées à l'avance. Pour tester tes propres tickets, clone le dépôt et lance <code>python app.py</code> avec ta clé Mistral."; }
+}
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "_tarifs": "Dollars par million de tokens. Vérifiés le 2026-11-08 : Mistral Large sur mistral.ai/pricing ; Small et Ministral d'après des comparateurs tiers, à confirmer dans la console Mistral.",
+  "modeles": {
+    "ministral-8b-latest": {"nom": "Ministral 8B", "entree": 0.10, "sortie": 0.10},
+    "mistral-small-latest": {"nom": "Mistral Small", "entree": 0.15, "sortie": 0.60},
+    "mistral-large-latest": {"nom": "Mistral Large", "entree": 0.50, "sortie": 1.50}
+  },
+  "seuil_confiance": 0.7
+}

@@ -1,0 +1,1585 @@
+{
+ "modeles": {
+  "baseline": {
+   "id": "baseline",
+   "nom": "Baseline mots-clés",
+   "global": {
+    "n": 90,
+    "precision_categorie": 0.667,
+    "ic95_categorie": [
+     0.564,
+     0.755
+    ],
+    "precision_priorite": 0.444,
+    "rappel_p1": 0.35,
+    "precision_p1": 0.636,
+    "p1_rates": 13,
+    "taux_automatisation": 1.0,
+    "precision_sur_automatise": 0.667
+   },
+   "standard": {
+    "n": 42,
+    "precision_categorie": 0.905,
+    "ic95_categorie": [
+     0.779,
+     0.962
+    ],
+    "precision_priorite": 0.571,
+    "rappel_p1": 0.875,
+    "precision_p1": 0.778,
+    "p1_rates": 1,
+    "taux_automatisation": 1.0,
+    "precision_sur_automatise": 0.905
+   },
+   "difficile": {
+    "n": 48,
+    "precision_categorie": 0.458,
+    "ic95_categorie": [
+     0.326,
+     0.597
+    ],
+    "precision_priorite": 0.333,
+    "rappel_p1": 0.0,
+    "precision_p1": 0.0,
+    "p1_rates": 12,
+    "taux_automatisation": 1.0,
+    "precision_sur_automatise": 0.458
+   },
+   "confusions": [
+    {
+     "attendu": "panne",
+     "predit": "autre",
+     "nb": 7
+    },
+    {
+     "attendu": "autre",
+     "predit": "intervention",
+     "nb": 3
+    },
+    {
+     "attendu": "raccordement",
+     "predit": "intervention",
+     "nb": 2
+    },
+    {
+     "attendu": "panne",
+     "predit": "facturation",
+     "nb": 2
+    },
+    {
+     "attendu": "commande",
+     "predit": "autre",
+     "nb": 2
+    },
+    {
+     "attendu": "autre",
+     "predit": "facturation",
+     "nb": 2
+    },
+    {
+     "attendu": "autre",
+     "predit": "panne",
+     "nb": 2
+    },
+    {
+     "attendu": "intervention",
+     "predit": "facturation",
+     "nb": 1
+    },
+    {
+     "attendu": "raccordement",
+     "predit": "autre",
+     "nb": 1
+    },
+    {
+     "attendu": "resiliation",
+     "predit": "autre",
+     "nb": 1
+    },
+    {
+     "attendu": "facturation",
+     "predit": "commande",
+     "nb": 1
+    },
+    {
+     "attendu": "intervention",
+     "predit": "raccordement",
+     "nb": 1
+    },
+    {
+     "attendu": "intervention",
+     "predit": "autre",
+     "nb": 1
+    },
+    {
+     "attendu": "commande",
+     "predit": "facturation",
+     "nb": 1
+    },
+    {
+     "attendu": "raccordement",
+     "predit": "facturation",
+     "nb": 1
+    },
+    {
+     "attendu": "panne",
+     "predit": "raccordement",
+     "nb": 1
+    },
+    {
+     "attendu": "panne",
+     "predit": "intervention",
+     "nb": 1
+    }
+   ]
+  }
+ },
+ "predictions": {
+  "baseline": {
+   "1": {
+    "categorie": "panne",
+    "priorite": "P1",
+    "equipe": "Support technique",
+    "resume": "Bonjour, depuis ce matin 8h plus aucune connexion internet sur notre site de pro",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "2": {
+    "categorie": "panne",
+    "priorite": "P3",
+    "equipe": "Support technique",
+    "resume": "Ma connexion fibre coupe plusieurs fois par soir depuis une semaine, ça revient ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "3": {
+    "categorie": "panne",
+    "priorite": "P1",
+    "equipe": "Support technique",
+    "resume": "Débit très faible ce week-end, 20 Mb/s au lieu de 500. Aujourd'hui ça a l'air re",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "4": {
+    "categorie": "panne",
+    "priorite": "P1",
+    "equipe": "Support technique",
+    "resume": "Lien fibre dédié de notre agence de Caen totalement HS, la téléphonie IP est cou",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "5": {
+    "categorie": "panne",
+    "priorite": "P3",
+    "equipe": "Support technique",
+    "resume": "Le wifi ne fonctionne plus mais le câble ethernet marche. Box redémarrée sans ef",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "6": {
+    "categorie": "panne",
+    "priorite": "P3",
+    "equipe": "Support technique",
+    "resume": "Perte de synchro DSL intermittente sur la ligne de la mairie, environ 3 coupures",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "7": {
+    "categorie": "raccordement",
+    "priorite": "P3",
+    "equipe": "Service raccordement",
+    "resume": "Bonjour, je viens d'emménager au 12 rue des Lilas, est-ce que mon logement est é",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "8": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Le technicien a dit que le PTO n'est pas posé dans l'appartement, il faut un rac",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "9": {
+    "categorie": "raccordement",
+    "priorite": "P1",
+    "equipe": "Service raccordement",
+    "resume": "Notre nouveau bâtiment ouvre le 1er du mois prochain et le raccordement fibre n'",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "10": {
+    "categorie": "raccordement",
+    "priorite": "P3",
+    "equipe": "Service raccordement",
+    "resume": "Raccordement impossible : le fourreau entre la rue et la maison est bouché d'apr",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "11": {
+    "categorie": "raccordement",
+    "priorite": "P3",
+    "equipe": "Service raccordement",
+    "resume": "Je souhaite savoir si le local commercial situé zone des Hauts Champs peut être ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "12": {
+    "categorie": "raccordement",
+    "priorite": "P3",
+    "equipe": "Service raccordement",
+    "resume": "Le point de branchement optique de l'immeuble est saturé selon l'opérateur, plus",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "13": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Le technicien prévu ce matin entre 8h et 12h n'est jamais venu et personne ne m'",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "14": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Merci de décaler l'intervention du jeudi 14 au lundi suivant, je ne serai pas di",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "15": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Le sous-traitant est passé hier mais est reparti sans finir, il manque la soudur",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "16": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Pouvez-vous me confirmer l'heure de passage du technicien demain ?",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "17": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Compte rendu d'intervention incomplet pour le dossier INT-58213, impossible de c",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "18": {
+    "categorie": "intervention",
+    "priorite": "P1",
+    "equipe": "Pilotage interventions",
+    "resume": "Troisième rendez-vous technicien annulé pour le même client hôpital, la situatio",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "19": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "J'ai été prélevé deux fois ce mois-ci, 39,99 € le 5 et encore le 7. Merci de me ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "20": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Pouvez-vous m'envoyer un duplicata de la facture de septembre au format PDF ?",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "21": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "La facture d'octobre comporte des frais de mise en service alors que l'offre com",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "22": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Je voudrais changer le RIB utilisé pour les prélèvements.",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "23": {
+    "categorie": "facturation",
+    "priorite": "P1",
+    "equipe": "Facturation",
+    "resume": "Montant facturé de 4 800 € au lieu de 480 € sur notre lien entreprise, notre com",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "24": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Pourquoi ma facture a augmenté de 3 € sans prévenir ?",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "25": {
+    "categorie": "commande",
+    "priorite": "P3",
+    "equipe": "ADV",
+    "resume": "Nous avons passé la commande CMD-77120 pour 3 liens fibre il y a 10 jours et nou",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "26": {
+    "categorie": "commande",
+    "priorite": "P3",
+    "equipe": "ADV",
+    "resume": "Erreur dans le bon de commande : l'adresse de livraison du site 2 est fausse, il",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "27": {
+    "categorie": "commande",
+    "priorite": "P3",
+    "equipe": "ADV",
+    "resume": "Je souhaite passer de l'offre 300 Mb à l'offre 1 Gb, comment faire ?",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "28": {
+    "categorie": "commande",
+    "priorite": "P1",
+    "equipe": "ADV",
+    "resume": "La commande CMD-80544 est en statut rejeté dans le portail sans motif. Le client",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "29": {
+    "categorie": "commande",
+    "priorite": "P3",
+    "equipe": "ADV",
+    "resume": "Demande de devis pour l'ajout d'une IP fixe sur notre contrat.",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "30": {
+    "categorie": "commande",
+    "priorite": "P3",
+    "equipe": "ADV",
+    "resume": "Doublon de commande créé par erreur pour le même site, merci d'annuler la CMD-81",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "31": {
+    "categorie": "resiliation",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Je déménage à l'étranger fin novembre et je souhaite résilier mon abonnement. Qu",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "32": {
+    "categorie": "resiliation",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Ça fait trois semaines que rien ne marche, je résilie. Envoyez-moi la confirmati",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "33": {
+    "categorie": "resiliation",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Nous fermons notre agence de Lisieux, merci de résilier le lien associé au 31/12",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "34": {
+    "categorie": "resiliation",
+    "priorite": "P1",
+    "equipe": "Service client",
+    "resume": "J'ai envoyé ma lettre de résiliation il y a deux mois et je suis encore facturé.",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "35": {
+    "categorie": "resiliation",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Quels sont les frais si je résilie avant la fin de mon engagement de 12 mois ?",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "36": {
+    "categorie": "resiliation",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Suite au décès de mon père, je souhaite mettre fin à son contrat internet.",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "37": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Bonjour, avez-vous des offres d'emploi pour technicien fibre dans la région ?",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "38": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Je voulais remercier le technicien Julien pour son professionnalisme lors de l'i",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "39": {
+    "categorie": "autre",
+    "priorite": "P1",
+    "equipe": "Service client",
+    "resume": "Un poteau télécom penche dangereusement au-dessus de la route devant le numéro 8",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "40": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Comment modifier le mot de passe de mon espace client ?",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "41": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Je souhaite exercer mon droit d'accès RGPD à l'ensemble des données personnelles",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "42": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Démarchage téléphonique agressif en votre nom hier soir, est-ce vraiment vous ?",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "43": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Bonjour, je suis infirmière coordinatrice à l'EHPAD Les Tilleuls. Depuis 6h les ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "44": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "super la fibre... 3e soir sans netflix, vraiment au top le service 👏👏",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "45": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "slt c koi le delai pr avoir la fibre chez moi jsuis au 4 impasse du moulin merci",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "46": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Hello, our Rouen office lost all connectivity at 9am, about 25 people are idle a",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "47": {
+    "categorie": "facturation",
+    "priorite": "P1",
+    "equipe": "Facturation",
+    "resume": "Internet coupé depuis hier soir. Au passage je remarque que ma facture a augment",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "48": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Je vous écris au sujet de ma facture de novembre : vous me facturez un mois comp",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "49": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Pharmacie du Centre : notre terminal de télétransmission vers la sécu ne passe p",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "50": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Le technicien est venu, il a tout réparé, mais il a percé dans le mur porteur sa",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "51": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Bonjour, c'est encore moi. Ticket n°45821, n°46002 et n°46310, toujours pas de r",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "52": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Bonjour, je vous contacte car j'aimerais savoir, si possible, comment cela se pa",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "53": {
+    "categorie": "resiliation",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "On a reçu le courrier de résiliation de notre lien fibre alors qu'on n'a jamais ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "54": {
+    "categorie": "commande",
+    "priorite": "P3",
+    "equipe": "ADV",
+    "resume": "Commande CMD-90211 : vous avez livré une box grand public au lieu du routeur ent",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "55": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Est-ce que vous pouvez juste me rappeler ? Merci.",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "56": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Le câble fibre qui arrive sur ma façade est arraché depuis le passage du camion ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "57": {
+    "categorie": "commande",
+    "priorite": "P3",
+    "equipe": "ADV",
+    "resume": "Vous avez coupé ma ligne pour impayé alors que j'ai payé par virement le 3, j'ai",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "58": {
+    "categorie": "commande",
+    "priorite": "P3",
+    "equipe": "ADV",
+    "resume": "Je souhaite ajouter une deuxième ligne fibre pour mon cabinet au rez-de-chaussée",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "59": {
+    "categorie": "raccordement",
+    "priorite": "P3",
+    "equipe": "Service raccordement",
+    "resume": "BONJOUR JE SUIS TRES EN COLERE CA FAIT 2 MOIS QUE J'ATTENDS QU'ON VIENNE ME RACC",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "60": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Merci de m'indiquer la procédure pour transférer mon contrat à mon nouveau logem",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "61": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Je reçois des emails se présentant comme votre service facturation avec un lien ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "62": {
+    "categorie": "panne",
+    "priorite": "P3",
+    "equipe": "Support technique",
+    "resume": "Mairie de Saint-Aubin : le jour du scrutin dimanche, le bureau de vote doit tran",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "63": {
+    "categorie": "raccordement",
+    "priorite": "P3",
+    "equipe": "Service raccordement",
+    "resume": "Le RDV de raccordement est demain matin mais l'accès au local technique de la co",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "64": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Nous constatons depuis 15 jours une latence de 80 à 150 ms vers nos serveurs à P",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "65": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Avoir non reçu suite au remboursement promis par votre conseiller le 10 octobre ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "66": {
+    "categorie": "resiliation",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "J'ai bien reçu la confirmation de résiliation, mais vous me réclamez la restitut",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "67": {
+    "categorie": "panne",
+    "priorite": "P3",
+    "equipe": "Support technique",
+    "resume": "Ne tenez pas compte de mon message précédent, la connexion est revenue. Bonne jo",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "68": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Plusieurs voisins et moi n'avons plus internet depuis les orages de cette nuit, ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "69": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Notre école passe le brevet blanc numérique jeudi, 120 élèves sur tablettes. Le ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "70": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Pouvez-vous m'expliquer la différence entre vos offres 1 Gb et 2 Gb ? Ça vaut vr",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "71": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Je suis le gestionnaire de l'immeuble au 22 bd de la Marne. Une équipe a ouvert ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "72": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Ma grand-mère de 89 ans a sa téléassistance branchée sur la box, et depuis le ch",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "73": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Facture pro : merci d'ajouter notre numéro de bon de commande interne PO-2026-11",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "74": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Ma commande de changement d'offre CMD-91877 est validée depuis 3 semaines mais j",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "75": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Après étude, le raccordement de notre ferme est annoncé à 4 200 € de frais de gé",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "76": {
+    "categorie": "panne",
+    "priorite": "P3",
+    "equipe": "Support technique",
+    "resume": "Un journaliste du quotidien régional m'a contacté au sujet des pannes à répétiti",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "77": {
+    "categorie": "autre",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "test",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "78": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Je n'arrive pas à me connecter à mon espace client depuis la mise à jour du site",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "79": {
+    "categorie": "intervention",
+    "priorite": "P1",
+    "equipe": "Pilotage interventions",
+    "resume": "Demande d'intervention : la prise fibre (PTO) a été arrachée lors de travaux de ",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "80": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "En tant que DSI du groupe, je souhaite un point sur la qualité de service : 7 in",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "81": {
+    "categorie": "raccordement",
+    "priorite": "P3",
+    "equipe": "Service raccordement",
+    "resume": "Le raccordement est fait mais la box ne s'allume pas du tout, voyant éteint, j'a",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "82": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Nous avons reçu une mise en demeure de votre service recouvrement pour une factu",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "83": {
+    "categorie": "resiliation",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Je résilie si on ne me propose pas mieux que l'offre concurrente à 24,99 €.",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "84": {
+    "categorie": "resiliation",
+    "priorite": "P3",
+    "equipe": "Service client",
+    "resume": "Merci de bien vouloir résilier la ligne de mon local professionnel, l'activité e",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "85": {
+    "categorie": "commande",
+    "priorite": "P3",
+    "equipe": "ADV",
+    "resume": "Commande en double sur le portail partenaire, le système a créé CMD-92001 et CMD",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "86": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Lors du raccordement le technicien a dit que le PBO dans la rue était plein et q",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "87": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Le technicien doit-il passer à l'intérieur du logement pour le raccordement ? Je",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "88": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Clinique vétérinaire : plus de connexion, nos logiciels de radiologie et de pris",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "89": {
+    "categorie": "intervention",
+    "priorite": "P3",
+    "equipe": "Pilotage interventions",
+    "resume": "Je confirme le rendez-vous technicien de jeudi 9h, le code d'accès de l'immeuble",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   },
+   "90": {
+    "categorie": "facturation",
+    "priorite": "P3",
+    "equipe": "Facturation",
+    "resume": "Votre chargé d'affaires m'avait promis une remise de 15 % sur 12 mois, elle n'ap",
+    "references": [],
+    "confiance": 1.0,
+    "revue_humaine": false
+   }
+  }
+ },
+ "genere_le": "2026-11-08",
+ "seuil_confiance": 0.7,
+ "tickets": [
+  {
+   "id": 1,
+   "texte": "Bonjour, depuis ce matin 8h plus aucune connexion internet sur notre site de production, 40 postes bloqués. Le voyant PON de la box est rouge. Merci d'intervenir en urgence.",
+   "categorie": "panne",
+   "priorite": "P1",
+   "difficulte": "standard"
+  },
+  {
+   "id": 2,
+   "texte": "Ma connexion fibre coupe plusieurs fois par soir depuis une semaine, ça revient tout seul au bout de 5 minutes.",
+   "categorie": "panne",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 3,
+   "texte": "Débit très faible ce week-end, 20 Mb/s au lieu de 500. Aujourd'hui ça a l'air revenu, je signale juste.",
+   "categorie": "panne",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 4,
+   "texte": "Lien fibre dédié de notre agence de Caen totalement HS, la téléphonie IP est coupée aussi, nos clients ne peuvent plus nous joindre.",
+   "categorie": "panne",
+   "priorite": "P1",
+   "difficulte": "standard"
+  },
+  {
+   "id": 5,
+   "texte": "Le wifi ne fonctionne plus mais le câble ethernet marche. Box redémarrée sans effet.",
+   "categorie": "panne",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 6,
+   "texte": "Perte de synchro DSL intermittente sur la ligne de la mairie, environ 3 coupures par jour depuis lundi.",
+   "categorie": "panne",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 7,
+   "texte": "Bonjour, je viens d'emménager au 12 rue des Lilas, est-ce que mon logement est éligible à la fibre et comment demander le raccordement ?",
+   "categorie": "raccordement",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 8,
+   "texte": "Le technicien a dit que le PTO n'est pas posé dans l'appartement, il faut un raccordement complet. Quel est le délai ?",
+   "categorie": "raccordement",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 9,
+   "texte": "Notre nouveau bâtiment ouvre le 1er du mois prochain et le raccordement fibre n'est toujours pas planifié, c'est bloquant pour l'ouverture.",
+   "categorie": "raccordement",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 10,
+   "texte": "Raccordement impossible : le fourreau entre la rue et la maison est bouché d'après l'équipe d'hier. Qui doit faire les travaux de génie civil ?",
+   "categorie": "raccordement",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 11,
+   "texte": "Je souhaite savoir si le local commercial situé zone des Hauts Champs peut être raccordé en fibre entreprise.",
+   "categorie": "raccordement",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 12,
+   "texte": "Le point de branchement optique de l'immeuble est saturé selon l'opérateur, plus aucun port disponible pour raccorder les nouveaux locataires.",
+   "categorie": "raccordement",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 13,
+   "texte": "Le technicien prévu ce matin entre 8h et 12h n'est jamais venu et personne ne m'a prévenu. Je veux un nouveau créneau rapidement.",
+   "categorie": "intervention",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 14,
+   "texte": "Merci de décaler l'intervention du jeudi 14 au lundi suivant, je ne serai pas disponible.",
+   "categorie": "intervention",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 15,
+   "texte": "Le sous-traitant est passé hier mais est reparti sans finir, il manque la soudure au PBO. Le client entreprise est toujours coupé.",
+   "categorie": "intervention",
+   "priorite": "P1",
+   "difficulte": "standard"
+  },
+  {
+   "id": 16,
+   "texte": "Pouvez-vous me confirmer l'heure de passage du technicien demain ?",
+   "categorie": "intervention",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 17,
+   "texte": "Compte rendu d'intervention incomplet pour le dossier INT-58213, impossible de clôturer la facturation du prestataire.",
+   "categorie": "intervention",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 18,
+   "texte": "Troisième rendez-vous technicien annulé pour le même client hôpital, la situation devient critique, besoin d'une intervention aujourd'hui.",
+   "categorie": "intervention",
+   "priorite": "P1",
+   "difficulte": "standard"
+  },
+  {
+   "id": 19,
+   "texte": "J'ai été prélevé deux fois ce mois-ci, 39,99 € le 5 et encore le 7. Merci de me rembourser.",
+   "categorie": "facturation",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 20,
+   "texte": "Pouvez-vous m'envoyer un duplicata de la facture de septembre au format PDF ?",
+   "categorie": "facturation",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 21,
+   "texte": "La facture d'octobre comporte des frais de mise en service alors que l'offre commerciale les annonçait offerts.",
+   "categorie": "facturation",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 22,
+   "texte": "Je voudrais changer le RIB utilisé pour les prélèvements.",
+   "categorie": "facturation",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 23,
+   "texte": "Montant facturé de 4 800 € au lieu de 480 € sur notre lien entreprise, notre comptabilité bloque le paiement. Merci de corriger avant échéance vendredi.",
+   "categorie": "facturation",
+   "priorite": "P1",
+   "difficulte": "standard"
+  },
+  {
+   "id": 24,
+   "texte": "Pourquoi ma facture a augmenté de 3 € sans prévenir ?",
+   "categorie": "facturation",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 25,
+   "texte": "Nous avons passé la commande CMD-77120 pour 3 liens fibre il y a 10 jours et nous n'avons aucun accusé de réception.",
+   "categorie": "commande",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 26,
+   "texte": "Erreur dans le bon de commande : l'adresse de livraison du site 2 est fausse, il faut la modifier avant traitement.",
+   "categorie": "commande",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 27,
+   "texte": "Je souhaite passer de l'offre 300 Mb à l'offre 1 Gb, comment faire ?",
+   "categorie": "commande",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 28,
+   "texte": "La commande CMD-80544 est en statut rejeté dans le portail sans motif. Le client signe son ouverture de site lundi, il nous faut une réponse aujourd'hui.",
+   "categorie": "commande",
+   "priorite": "P1",
+   "difficulte": "standard"
+  },
+  {
+   "id": 29,
+   "texte": "Demande de devis pour l'ajout d'une IP fixe sur notre contrat.",
+   "categorie": "commande",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 30,
+   "texte": "Doublon de commande créé par erreur pour le même site, merci d'annuler la CMD-81002 et de garder la CMD-81001.",
+   "categorie": "commande",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 31,
+   "texte": "Je déménage à l'étranger fin novembre et je souhaite résilier mon abonnement. Quelle est la procédure ?",
+   "categorie": "resiliation",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 32,
+   "texte": "Ça fait trois semaines que rien ne marche, je résilie. Envoyez-moi la confirmation et ne me prélevez plus.",
+   "categorie": "resiliation",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 33,
+   "texte": "Nous fermons notre agence de Lisieux, merci de résilier le lien associé au 31/12.",
+   "categorie": "resiliation",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 34,
+   "texte": "J'ai envoyé ma lettre de résiliation il y a deux mois et je suis encore facturé. Je vais saisir le médiateur.",
+   "categorie": "resiliation",
+   "priorite": "P1",
+   "difficulte": "standard"
+  },
+  {
+   "id": 35,
+   "texte": "Quels sont les frais si je résilie avant la fin de mon engagement de 12 mois ?",
+   "categorie": "resiliation",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 36,
+   "texte": "Suite au décès de mon père, je souhaite mettre fin à son contrat internet.",
+   "categorie": "resiliation",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 37,
+   "texte": "Bonjour, avez-vous des offres d'emploi pour technicien fibre dans la région ?",
+   "categorie": "autre",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 38,
+   "texte": "Je voulais remercier le technicien Julien pour son professionnalisme lors de l'installation.",
+   "categorie": "autre",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 39,
+   "texte": "Un poteau télécom penche dangereusement au-dessus de la route devant le numéro 8, avec des câbles très bas. Risque pour les véhicules.",
+   "categorie": "autre",
+   "priorite": "P1",
+   "difficulte": "standard"
+  },
+  {
+   "id": 40,
+   "texte": "Comment modifier le mot de passe de mon espace client ?",
+   "categorie": "autre",
+   "priorite": "P3",
+   "difficulte": "standard"
+  },
+  {
+   "id": 41,
+   "texte": "Je souhaite exercer mon droit d'accès RGPD à l'ensemble des données personnelles que vous détenez sur moi.",
+   "categorie": "autre",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 42,
+   "texte": "Démarchage téléphonique agressif en votre nom hier soir, est-ce vraiment vous ?",
+   "categorie": "autre",
+   "priorite": "P2",
+   "difficulte": "standard"
+  },
+  {
+   "id": 43,
+   "texte": "Bonjour, je suis infirmière coordinatrice à l'EHPAD Les Tilleuls. Depuis 6h les bracelets d'appel des résidents ne remontent plus, notre prestataire dit que c'est la ligne internet. On fait des rondes toutes les 15 min en attendant.",
+   "categorie": "panne",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 44,
+   "texte": "super la fibre... 3e soir sans netflix, vraiment au top le service 👏👏",
+   "categorie": "panne",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 45,
+   "texte": "slt c koi le delai pr avoir la fibre chez moi jsuis au 4 impasse du moulin merci",
+   "categorie": "raccordement",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 46,
+   "texte": "Hello, our Rouen office lost all connectivity at 9am, about 25 people are idle and our ERP is cloud-based. Please call me back ASAP.",
+   "categorie": "panne",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 47,
+   "texte": "Internet coupé depuis hier soir. Au passage je remarque que ma facture a augmenté, mais ça on verra plus tard, le plus urgent c'est la connexion, je télétravaille.",
+   "categorie": "panne",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 48,
+   "texte": "Je vous écris au sujet de ma facture de novembre : vous me facturez un mois complet alors que je n'ai eu aucune connexion pendant 12 jours suite à la panne du quartier. Je demande un geste commercial.",
+   "categorie": "facturation",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 49,
+   "texte": "Pharmacie du Centre : notre terminal de télétransmission vers la sécu ne passe plus depuis ce matin, la box clignote. On ne peut plus facturer les ordonnances.",
+   "categorie": "panne",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 50,
+   "texte": "Le technicien est venu, il a tout réparé, mais il a percé dans le mur porteur sans demander et laissé des gravats partout. Je veux que quelqu'un vienne constater.",
+   "categorie": "intervention",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 51,
+   "texte": "Bonjour, c'est encore moi. Ticket n°45821, n°46002 et n°46310, toujours pas de réponse. Je ne sais plus quoi faire.",
+   "categorie": "autre",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 52,
+   "texte": "Bonjour, je vous contacte car j'aimerais savoir, si possible, comment cela se passerait si jamais, dans quelques mois, je décidais éventuellement de ne plus conserver mon abonnement.",
+   "categorie": "resiliation",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 53,
+   "texte": "On a reçu le courrier de résiliation de notre lien fibre alors qu'on n'a jamais rien demandé ! Le service s'arrête dans 5 jours d'après la lettre. C'est notre lien principal pour 3 sites.",
+   "categorie": "resiliation",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 54,
+   "texte": "Commande CMD-90211 : vous avez livré une box grand public au lieu du routeur entreprise prévu au contrat. Le site ouvre dans 2 semaines.",
+   "categorie": "commande",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 55,
+   "texte": "Est-ce que vous pouvez juste me rappeler ? Merci.",
+   "categorie": "autre",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 56,
+   "texte": "Le câble fibre qui arrive sur ma façade est arraché depuis le passage du camion poubelle ce matin, il pend jusqu'au trottoir. Plus d'internet bien sûr.",
+   "categorie": "panne",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 57,
+   "texte": "Vous avez coupé ma ligne pour impayé alors que j'ai payé par virement le 3, j'ai la preuve. Je suis artisan, sans internet je ne reçois plus mes commandes.",
+   "categorie": "facturation",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 58,
+   "texte": "Je souhaite ajouter une deuxième ligne fibre pour mon cabinet au rez-de-chaussée, même adresse que mon domicile. Faut-il un nouveau raccordement ou une nouvelle commande ?",
+   "categorie": "commande",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 59,
+   "texte": "BONJOUR JE SUIS TRES EN COLERE CA FAIT 2 MOIS QUE J'ATTENDS QU'ON VIENNE ME RACCORDER ET A CHAQUE FOIS ON ME DIT LA SEMAINE PROCHAINE",
+   "categorie": "raccordement",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 60,
+   "texte": "Merci de m'indiquer la procédure pour transférer mon contrat à mon nouveau logement, je déménage le 15.",
+   "categorie": "commande",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 61,
+   "texte": "Je reçois des emails se présentant comme votre service facturation avec un lien pour mettre à jour ma carte bancaire. Est-ce une arnaque ?",
+   "categorie": "autre",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 62,
+   "texte": "Mairie de Saint-Aubin : le jour du scrutin dimanche, le bureau de vote doit transmettre les résultats en ligne. Notre connexion est instable depuis mardi. Pouvez-vous garantir qu'elle tiendra ?",
+   "categorie": "panne",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 63,
+   "texte": "Le RDV de raccordement est demain matin mais l'accès au local technique de la copropriété nécessite un badge du syndic, que je n'aurai que lundi. Il faut décaler.",
+   "categorie": "intervention",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 64,
+   "texte": "Nous constatons depuis 15 jours une latence de 80 à 150 ms vers nos serveurs à Paris contre 8 ms habituellement. Pas de coupure mais nos utilisateurs de bureau à distance se plaignent.",
+   "categorie": "panne",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 65,
+   "texte": "Avoir non reçu suite au remboursement promis par votre conseiller le 10 octobre (dossier REC-3321).",
+   "categorie": "facturation",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 66,
+   "texte": "J'ai bien reçu la confirmation de résiliation, mais vous me réclamez la restitution de la box alors que je l'ai rendue en boutique le 2 novembre. Vous menacez de me facturer 150 €.",
+   "categorie": "resiliation",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 67,
+   "texte": "Ne tenez pas compte de mon message précédent, la connexion est revenue. Bonne journée.",
+   "categorie": "autre",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 68,
+   "texte": "Plusieurs voisins et moi n'avons plus internet depuis les orages de cette nuit, l'armoire de rue au coin de la rue Victor Hugo est ouverte et a pris l'eau.",
+   "categorie": "panne",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 69,
+   "texte": "Notre école passe le brevet blanc numérique jeudi, 120 élèves sur tablettes. Le technicien devait venir hier régler le problème de débit et n'est pas venu.",
+   "categorie": "intervention",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 70,
+   "texte": "Pouvez-vous m'expliquer la différence entre vos offres 1 Gb et 2 Gb ? Ça vaut vraiment le coup pour une famille de 4 ?",
+   "categorie": "commande",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 71,
+   "texte": "Je suis le gestionnaire de l'immeuble au 22 bd de la Marne. Une équipe a ouvert la gaine technique hier sans prévenir et a laissé la porte du local électrique ouverte.",
+   "categorie": "intervention",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 72,
+   "texte": "Ma grand-mère de 89 ans a sa téléassistance branchée sur la box, et depuis le changement de box la semaine dernière le boîtier affiche défaut de ligne.",
+   "categorie": "panne",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 73,
+   "texte": "Facture pro : merci d'ajouter notre numéro de bon de commande interne PO-2026-118 sur les prochaines factures, sinon notre service compta les rejette.",
+   "categorie": "facturation",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 74,
+   "texte": "Ma commande de changement d'offre CMD-91877 est validée depuis 3 semaines mais je suis toujours en 300 Mb et facturé au prix du 1 Gb.",
+   "categorie": "commande",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 75,
+   "texte": "Après étude, le raccordement de notre ferme est annoncé à 4 200 € de frais de génie civil. Existe-t-il des aides ou un autre tracé ?",
+   "categorie": "raccordement",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 76,
+   "texte": "Un journaliste du quotidien régional m'a contacté au sujet des pannes à répétition dans notre commune. Je préfère vous en parler avant de lui répondre. Adjoint au maire.",
+   "categorie": "autre",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 77,
+   "texte": "test",
+   "categorie": "autre",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 78,
+   "texte": "Je n'arrive pas à me connecter à mon espace client depuis la mise à jour du site, impossible de télécharger mes factures pour mes impôts.",
+   "categorie": "autre",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 79,
+   "texte": "Demande d'intervention : la prise fibre (PTO) a été arrachée lors de travaux de peinture, il faudrait la remplacer. Pas d'urgence, on a la 4G en attendant.",
+   "categorie": "intervention",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 80,
+   "texte": "En tant que DSI du groupe, je souhaite un point sur la qualité de service : 7 incidents en octobre sur nos 12 sites. Merci de me proposer un créneau avec votre responsable de compte.",
+   "categorie": "autre",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 81,
+   "texte": "Le raccordement est fait mais la box ne s'allume pas du tout, voyant éteint, j'ai testé une autre prise électrique.",
+   "categorie": "panne",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 82,
+   "texte": "Nous avons reçu une mise en demeure de votre service recouvrement pour une facture de 2023 déjà réglée. Notre avocat est en copie.",
+   "categorie": "facturation",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 83,
+   "texte": "Je résilie si on ne me propose pas mieux que l'offre concurrente à 24,99 €.",
+   "categorie": "resiliation",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 84,
+   "texte": "Merci de bien vouloir résilier la ligne de mon local professionnel, l'activité est transférée chez mon associé qui reprendra un contrat à son nom.",
+   "categorie": "resiliation",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 85,
+   "texte": "Commande en double sur le portail partenaire, le système a créé CMD-92001 et CMD-92002 pour le même client à 2 secondes d'écart, l'une est déjà en cours de traitement.",
+   "categorie": "commande",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 86,
+   "texte": "Lors du raccordement le technicien a dit que le PBO dans la rue était plein et qu'il fallait attendre une extension du réseau, sans délai. Personne ne me rappelle.",
+   "categorie": "raccordement",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 87,
+   "texte": "Le technicien doit-il passer à l'intérieur du logement pour le raccordement ? Je suis en fauteuil roulant et je voudrais préparer l'accès.",
+   "categorie": "intervention",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 88,
+   "texte": "Clinique vétérinaire : plus de connexion, nos logiciels de radiologie et de prise de rendez-vous sont à l'arrêt, une chirurgie est prévue à 14h avec imagerie.",
+   "categorie": "panne",
+   "priorite": "P1",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 89,
+   "texte": "Je confirme le rendez-vous technicien de jeudi 9h, le code d'accès de l'immeuble est 4512B.",
+   "categorie": "intervention",
+   "priorite": "P3",
+   "difficulte": "difficile"
+  },
+  {
+   "id": 90,
+   "texte": "Votre chargé d'affaires m'avait promis une remise de 15 % sur 12 mois, elle n'apparaît sur aucune facture depuis la signature.",
+   "categorie": "facturation",
+   "priorite": "P2",
+   "difficulte": "difficile"
+  }
+ ]
+}
