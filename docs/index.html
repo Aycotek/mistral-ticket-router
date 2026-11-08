@@ -93,7 +93,7 @@ a{color:var(--accent)}
 
 <section id="essayer">
   <h2>Essayer</h2>
-  <p class="sub">Choisis un ticket du jeu de test pour voir la réponse de chaque modèle, ou écris le tien (démo locale).</p>
+  <p class="sub">Choisissez un ticket du jeu de test pour voir la réponse de chaque modèle, ou écrivez le vôtre (démo locale).</p>
   <div id="live-note" class="notice"></div>
   <div class="row" style="margin-top:0">
     <select id="exemple" style="flex:1;min-width:0"></select>
@@ -274,6 +274,7 @@ async function init() {
   $("#tabs-perimetre").addEventListener("click", e => { if (e.target.dataset.p) { perimetre = e.target.dataset.p; comparaison(); } });
   $("#filtres").addEventListener("click", e => { if (e.target.dataset.f) { filtre = e.target.dataset.f; explorateur(); } });
   try {
+    if (!["localhost", "127.0.0.1"].includes(location.hostname)) throw 0;
     const s = await (await fetch("/api/status")).json();
     live = s.live;
     if (live) {
@@ -282,10 +283,10 @@ async function init() {
       $("#modele-live").innerHTML = Object.entries(s.modeles).map(([k, v]) => `<option value="${k}">${esc(v.nom)}</option>`).join("");
       $("#modele-live").value = s.defaut;
       $("#go").addEventListener("click", trierLive);
-      $("#live-note").innerHTML = "Démo en direct activée : choisis un exemple ou écris ton propre ticket, puis lance le tri.";
+      $("#live-note").innerHTML = "Démo en direct activée : choisissez un exemple ou écrivez votre propre ticket, puis lancez le tri.";
       montrerExemple();
     } else throw 0;
-  } catch { $("#live-note").innerHTML = "Version en ligne : les réponses affichées ont été générées à l'avance. Pour tester tes propres tickets, clone le dépôt et lance <code>python app.py</code> avec ta clé Mistral."; }
+  } catch { $("#live-note").innerHTML = "Version en ligne : les réponses affichées ont été générées à l'avance. Pour tester vos propres tickets, clonez le dépôt et lancez <code>python app.py</code> avec une clé Mistral."; }
 }
 init();
 </script>
