@@ -1,0 +1,42 @@
+{"id": 1, "texte": "Bonjour, depuis ce matin 8h plus aucune connexion internet sur notre site de production, 40 postes bloqués. Le voyant PON de la box est rouge. Merci d'intervenir en urgence.", "categorie": "panne", "priorite": "P1"}
+{"id": 2, "texte": "Ma connexion fibre coupe plusieurs fois par soir depuis une semaine, ça revient tout seul au bout de 5 minutes.", "categorie": "panne", "priorite": "P2"}
+{"id": 3, "texte": "Débit très faible ce week-end, 20 Mb/s au lieu de 500. Aujourd'hui ça a l'air revenu, je signale juste.", "categorie": "panne", "priorite": "P3"}
+{"id": 4, "texte": "Lien fibre dédié de notre agence de Caen totalement HS, la téléphonie IP est coupée aussi, nos clients ne peuvent plus nous joindre.", "categorie": "panne", "priorite": "P1"}
+{"id": 5, "texte": "Le wifi ne fonctionne plus mais le câble ethernet marche. Box redémarrée sans effet.", "categorie": "panne", "priorite": "P3"}
+{"id": 6, "texte": "Perte de synchro DSL intermittente sur la ligne de la mairie, environ 3 coupures par jour depuis lundi.", "categorie": "panne", "priorite": "P2"}
+{"id": 7, "texte": "Bonjour, je viens d'emménager au 12 rue des Lilas, est-ce que mon logement est éligible à la fibre et comment demander le raccordement ?", "categorie": "raccordement", "priorite": "P3"}
+{"id": 8, "texte": "Le technicien a dit que le PTO n'est pas posé dans l'appartement, il faut un raccordement complet. Quel est le délai ?", "categorie": "raccordement", "priorite": "P3"}
+{"id": 9, "texte": "Notre nouveau bâtiment ouvre le 1er du mois prochain et le raccordement fibre n'est toujours pas planifié, c'est bloquant pour l'ouverture.", "categorie": "raccordement", "priorite": "P2"}
+{"id": 10, "texte": "Raccordement impossible : le fourreau entre la rue et la maison est bouché d'après l'équipe d'hier. Qui doit faire les travaux de génie civil ?", "categorie": "raccordement", "priorite": "P2"}
+{"id": 11, "texte": "Je souhaite savoir si le local commercial situé zone des Hauts Champs peut être raccordé en fibre entreprise.", "categorie": "raccordement", "priorite": "P3"}
+{"id": 12, "texte": "Le point de branchement optique de l'immeuble est saturé selon l'opérateur, plus aucun port disponible pour raccorder les nouveaux locataires.", "categorie": "raccordement", "priorite": "P2"}
+{"id": 13, "texte": "Le technicien prévu ce matin entre 8h et 12h n'est jamais venu et personne ne m'a prévenu. Je veux un nouveau créneau rapidement.", "categorie": "intervention", "priorite": "P2"}
+{"id": 14, "texte": "Merci de décaler l'intervention du jeudi 14 au lundi suivant, je ne serai pas disponible.", "categorie": "intervention", "priorite": "P3"}
+{"id": 15, "texte": "Le sous-traitant est passé hier mais est reparti sans finir, il manque la soudure au PBO. Le client entreprise est toujours coupé.", "categorie": "intervention", "priorite": "P1"}
+{"id": 16, "texte": "Pouvez-vous me confirmer l'heure de passage du technicien demain ?", "categorie": "intervention", "priorite": "P3"}
+{"id": 17, "texte": "Compte rendu d'intervention incomplet pour le dossier INT-58213, impossible de clôturer la facturation du prestataire.", "categorie": "intervention", "priorite": "P2"}
+{"id": 18, "texte": "Troisième rendez-vous technicien annulé pour le même client hôpital, la situation devient critique, besoin d'une intervention aujourd'hui.", "categorie": "intervention", "priorite": "P1"}
+{"id": 19, "texte": "J'ai été prélevé deux fois ce mois-ci, 39,99 € le 5 et encore le 7. Merci de me rembourser.", "categorie": "facturation", "priorite": "P2"}
+{"id": 20, "texte": "Pouvez-vous m'envoyer un duplicata de la facture de septembre au format PDF ?", "categorie": "facturation", "priorite": "P3"}
+{"id": 21, "texte": "La facture d'octobre comporte des frais de mise en service alors que l'offre commerciale les annonçait offerts.", "categorie": "facturation", "priorite": "P2"}
+{"id": 22, "texte": "Je voudrais changer le RIB utilisé pour les prélèvements.", "categorie": "facturation", "priorite": "P3"}
+{"id": 23, "texte": "Montant facturé de 4 800 € au lieu de 480 € sur notre lien entreprise, notre comptabilité bloque le paiement. Merci de corriger avant échéance vendredi.", "categorie": "facturation", "priorite": "P1"}
+{"id": 24, "texte": "Pourquoi ma facture a augmenté de 3 € sans prévenir ?", "categorie": "facturation", "priorite": "P3"}
+{"id": 25, "texte": "Nous avons passé la commande CMD-77120 pour 3 liens fibre il y a 10 jours et nous n'avons aucun accusé de réception.", "categorie": "commande", "priorite": "P2"}
+{"id": 26, "texte": "Erreur dans le bon de commande : l'adresse de livraison du site 2 est fausse, il faut la modifier avant traitement.", "categorie": "commande", "priorite": "P2"}
+{"id": 27, "texte": "Je souhaite passer de l'offre 300 Mb à l'offre 1 Gb, comment faire ?", "categorie": "commande", "priorite": "P3"}
+{"id": 28, "texte": "La commande CMD-80544 est en statut rejeté dans le portail sans motif. Le client signe son ouverture de site lundi, il nous faut une réponse aujourd'hui.", "categorie": "commande", "priorite": "P1"}
+{"id": 29, "texte": "Demande de devis pour l'ajout d'une IP fixe sur notre contrat.", "categorie": "commande", "priorite": "P3"}
+{"id": 30, "texte": "Doublon de commande créé par erreur pour le même site, merci d'annuler la CMD-81002 et de garder la CMD-81001.", "categorie": "commande", "priorite": "P2"}
+{"id": 31, "texte": "Je déménage à l'étranger fin novembre et je souhaite résilier mon abonnement. Quelle est la procédure ?", "categorie": "resiliation", "priorite": "P3"}
+{"id": 32, "texte": "Ça fait trois semaines que rien ne marche, je résilie. Envoyez-moi la confirmation et ne me prélevez plus.", "categorie": "resiliation", "priorite": "P2"}
+{"id": 33, "texte": "Nous fermons notre agence de Lisieux, merci de résilier le lien associé au 31/12.", "categorie": "resiliation", "priorite": "P3"}
+{"id": 34, "texte": "J'ai envoyé ma lettre de résiliation il y a deux mois et je suis encore facturé. Je vais saisir le médiateur.", "categorie": "resiliation", "priorite": "P1"}
+{"id": 35, "texte": "Quels sont les frais si je résilie avant la fin de mon engagement de 12 mois ?", "categorie": "resiliation", "priorite": "P3"}
+{"id": 36, "texte": "Suite au décès de mon père, je souhaite mettre fin à son contrat internet.", "categorie": "resiliation", "priorite": "P2"}
+{"id": 37, "texte": "Bonjour, avez-vous des offres d'emploi pour technicien fibre dans la région ?", "categorie": "autre", "priorite": "P3"}
+{"id": 38, "texte": "Je voulais remercier le technicien Julien pour son professionnalisme lors de l'installation.", "categorie": "autre", "priorite": "P3"}
+{"id": 39, "texte": "Un poteau télécom penche dangereusement au-dessus de la route devant le numéro 8, avec des câbles très bas. Risque pour les véhicules.", "categorie": "autre", "priorite": "P1"}
+{"id": 40, "texte": "Comment modifier le mot de passe de mon espace client ?", "categorie": "autre", "priorite": "P3"}
+{"id": 41, "texte": "Je souhaite exercer mon droit d'accès RGPD à l'ensemble des données personnelles que vous détenez sur moi.", "categorie": "autre", "priorite": "P2"}
+{"id": 42, "texte": "Démarchage téléphonique agressif en votre nom hier soir, est-ce vraiment vous ?", "categorie": "autre", "priorite": "P2"}
