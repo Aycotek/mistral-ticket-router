@@ -86,7 +86,8 @@ a{color:var(--accent)}
 <header>
   <div class="eyebrow">Démo · IA appliquée au support client</div>
   <h1>Trier les tickets d'un opérateur fibre avec Mistral</h1>
-  <p class="lead">Chaque message client reçoit une catégorie, une urgence et une équipe destinataire. Trois modèles Mistral sont comparés à une règle par mots-clés sur 90 tickets, dont 48 pièges, avec le coût et le gain réel par mois.</p>
+  <p class="lead">Chaque message client reçoit une catégorie, une urgence et une équipe destinataire. Un banc d'essai de 90 tickets, dont 48 pièges, compare les modèles Mistral à une règle par mots-clés, avec le coût et le gain réel par mois.</p>
+  <p class="notice llm-pending" hidden style="margin-top:20px">Cette version publie les résultats de la règle par mots-clés, qui servent de point de référence. Les modèles Mistral s'ajoutent automatiquement aux graphiques en lançant <code>python evaluate.py</code> avec une clé API (voir le dépôt).</p>
   <div class="kpis" id="kpis"></div>
 </header>
 
@@ -160,7 +161,11 @@ function meilleur() {
 
 function kpis() {
   const b = meilleur(), base = D.modeles.baseline;
-  if (!b) { $("#kpis").innerHTML = `<div class="kpi"><b>${pct(base.global.precision_categorie)}</b><span>Précision de la règle par mots-clés</span></div><div class="kpi"><b>${pct(base.difficile.rappel_p1)}</b><span>Urgences difficiles détectées par la règle</span></div><div class="kpi"><b>…</b><span>Résultats Mistral en cours de génération</span></div>`; return; }
+  if (!b) {
+    $("#kpis").innerHTML = `<div class="kpi"><b>${pct(base.standard.precision_categorie)}</b><span>de bons tris par la règle sur les tickets standard…</span></div><div class="kpi"><b>${pct(base.difficile.precision_categorie)}</b><span>…mais seulement sur les tickets difficiles</span></div><div class="kpi"><b>${base.difficile.p1_rates} / ${D.tickets.filter(t => t.difficulte === "difficile" && t.priorite === "P1").length}</b><span>urgences difficiles classées « pas urgent » (EHPAD, pharmacie, téléassistance…)</span></div>`;
+    document.querySelectorAll(".llm-pending").forEach(e => e.hidden = false);
+    return;
+  }
   const m = D.modeles[b];
   $("#kpis").innerHTML = `
     <div class="kpi"><b>${pct(m.global.precision_categorie)}</b><span>de tickets bien classés par ${esc(m.nom)} (règle : ${pct(base.global.precision_categorie)})</span></div>

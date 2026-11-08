@@ -40,7 +40,7 @@ def wilson(k, n, z=1.96):
     p = k / n
     centre = (p + z * z / (2 * n)) / (1 + z * z / n)
     marge = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / (1 + z * z / n)
-    return (round(centre - marge, 3), round(centre + marge, 3))
+    return (round(centre - marge, 4), round(centre + marge, 4))
 
 
 def metriques(paires):
@@ -56,14 +56,14 @@ def metriques(paires):
     ok_auto = sum(d["categorie"] == t["categorie"] for t, d in auto)
     return {
         "n": n,
-        "precision_categorie": round(ok_cat / n, 3),
+        "precision_categorie": round(ok_cat / n, 4),
         "ic95_categorie": wilson(ok_cat, n),
-        "precision_priorite": round(ok_prio / n, 3),
-        "rappel_p1": round(sum(d["priorite"] == "P1" for d in vrais_p1) / len(vrais_p1), 3) if vrais_p1 else None,
-        "precision_p1": round(sum(t["priorite"] == "P1" for t in predits_p1) / len(predits_p1), 3) if predits_p1 else None,
+        "precision_priorite": round(ok_prio / n, 4),
+        "rappel_p1": round(sum(d["priorite"] == "P1" for d in vrais_p1) / len(vrais_p1), 4) if vrais_p1 else None,
+        "precision_p1": round(sum(t["priorite"] == "P1" for t in predits_p1) / len(predits_p1), 4) if predits_p1 else None,
         "p1_rates": sum(d["priorite"] == "P3" for d in vrais_p1),
-        "taux_automatisation": round(len(auto) / n, 3),
-        "precision_sur_automatise": round(ok_auto / len(auto), 3) if auto else None,
+        "taux_automatisation": round(len(auto) / n, 4),
+        "precision_sur_automatise": round(ok_auto / len(auto), 4) if auto else None,
     }
 
 

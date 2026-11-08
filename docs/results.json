@@ -5,45 +5,45 @@
    "nom": "Baseline mots-clés",
    "global": {
     "n": 90,
-    "precision_categorie": 0.667,
+    "precision_categorie": 0.6667,
     "ic95_categorie": [
-     0.564,
-     0.755
+     0.5642,
+     0.7555
     ],
-    "precision_priorite": 0.444,
+    "precision_priorite": 0.4444,
     "rappel_p1": 0.35,
-    "precision_p1": 0.636,
+    "precision_p1": 0.6364,
     "p1_rates": 13,
     "taux_automatisation": 1.0,
-    "precision_sur_automatise": 0.667
+    "precision_sur_automatise": 0.6667
    },
    "standard": {
     "n": 42,
-    "precision_categorie": 0.905,
+    "precision_categorie": 0.9048,
     "ic95_categorie": [
-     0.779,
-     0.962
+     0.7793,
+     0.9623
     ],
-    "precision_priorite": 0.571,
+    "precision_priorite": 0.5714,
     "rappel_p1": 0.875,
-    "precision_p1": 0.778,
+    "precision_p1": 0.7778,
     "p1_rates": 1,
     "taux_automatisation": 1.0,
-    "precision_sur_automatise": 0.905
+    "precision_sur_automatise": 0.9048
    },
    "difficile": {
     "n": 48,
-    "precision_categorie": 0.458,
+    "precision_categorie": 0.4583,
     "ic95_categorie": [
-     0.326,
-     0.597
+     0.3258,
+     0.5971
     ],
-    "precision_priorite": 0.333,
+    "precision_priorite": 0.3333,
     "rappel_p1": 0.0,
     "precision_p1": 0.0,
     "p1_rates": 12,
     "taux_automatisation": 1.0,
-    "precision_sur_automatise": 0.458
+    "precision_sur_automatise": 0.4583
    },
    "confusions": [
     {

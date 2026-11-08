@@ -155,6 +155,11 @@ Deux points comptent dans cette formule :
 Voir le [tableau du README](README.md#résultats) et la [page interactive](https://aycotek.github.io/mistral-ticket-router/).
 Les rapports détaillés par modèle sont dans [`results/`](results/).
 
+**Statut :** les résultats publiés à ce jour sont ceux de la règle par mots-clés. Le code
+d'appel aux modèles Mistral est couvert par des tests qui simulent l'API (format de
+réponse, limites de débit, réponses invalides). Les scores des modèles s'obtiennent avec
+`python evaluate.py` et une clé API, et ils s'ajoutent automatiquement à la page.
+
 ## 9. Limites (à connaître avant de tirer des conclusions)
 
 - **Données fictives.** Les tickets ont été écrits pour être réalistes, mais les vrais messages sont plus longs, plus bruités (signatures, historiques de mails), et leur répartition entre catégories est différente.
